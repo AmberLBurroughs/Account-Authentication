@@ -1,0 +1,40 @@
+{
+  "name": "React-RentAll",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sun1devil/React-RentAll.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sun1devil/React-RentAll/issues"
+  },
+  "homepage": "https://github.com/sun1devil/React-RentAll#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bcrypt": "^2.0.1",
+    "body-parser": "^1.18.3",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "express-fileupload": "^0.4.0",
+    "express-session": "^1.15.6",
+    "morgan": "^1.9.0",
+    "mysql": "^2.15.0",
+    "mysql2": "^1.5.3",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "passport-remember-me": "0.0.1",
+    "sequelize": "^4.38.0",
+    "stripe": "^6.2.0"
+  }
+}
