@@ -4,74 +4,44 @@ const passport = require('passport');
 
 // Defining methods for the accountController
 module.exports = {
-
-  // findAll: function(req, res) {
-  //   db.account
-  //     .findAll()
-  //     .then(dbaccount =>{
-  //       let  accounts = [];
-  //       dbaccount.forEach(account => {
-  //         accounts.push({
-  //           uuid:account.dataValues.uuid,
-  //           email: account.dataValues.email,
-  //           createdAt: account.dataValues.createdAt
-  //         });
-
-  //       })
-
-  //       res.json(accounts);
-  //     })
-  //     .catch(err => res.status(422).json(err));
-  // },
-  // findById: function(req, res) {
-  //   if(checkAuthentication){
-  //      db.account
-  //       .findById(getCurrentuserId(req))
-  //       .then(dbaccount => res.json(dbaccount))
-  //       .catch(err => res.status(422).json(err));
-  //   }
-  // },
-  create: function(req, res) {
-    db.Account
-      .create(req.body)
+  find: (req, res) => {
+    if(req.isAuthenticated()){
+      db.Account
+      .findById(req.session.passport.user)
       .then(dbaccount => {
-        res.json(dbaccount)
+        res.json(dbaccount);
       })
       .catch(err => res.status(422).json(err));
+    }
+    res.status(401).json(err);  
   },
-  // update: function(req, res) {
-  //   db.account
-  //     .update(req.body, { where:{ uuid: "78848350-7e94-11e8-9700-1b3dc8443d85" }}, )
-  //     .then(dbaccount => res.json(dbaccount))
-  //     .catch(err => res.status(422).json(err));
-  // },
-  // remove: function(req, res) {
-  //   db.account
-  //     .findById({ _id: req.params.id })
-  //     .then(dbaccount => dbaccount.remove())
-  //     .then(dbaccount => res.json(dbaccount))
-  //     .catch(err => res.status(422).json(err));
-  // },
-
-  getCurrentUserId: function(req){
-    let userId;
+  create: (req, res) => {
+    // const accountData = {
+    //   first_name: req.body.first_name,
+    //   last_name: req.body.last_name,
+    //   fruit: req.body.fruit,
+    //   userUUID:req.session.passport.user
+    // }
     if(req.isAuthenticated()){
-      userId = req.session.passport.account;
-      console.log(`account: ${userId}`);
-    } else {
-      userId = false
+      db.Account
+      .create(req.body, {userUUID:req.session.passport.user})
+      .then(dbaccount => {
+        res.json(dbaccount);
+      })
+      .catch(err => res.status(422).json(err));
     }
-    return userId
+    res.status(401).json(err);  
   },
-
-  checkAuthentication: function(req){
+  update: (req, res) => {
     if(req.isAuthenticated()){
-      return true
+      db.Account
+      .update(req.body,{ where: {userUUID: req.session.passport.user}})
+      .then(dbaccount => {
+        res.json(dbaccount);
+      })
+      .catch(err => res.status(422).json(err));
     }
-    else {
-      return false
-    }
+    res.status(401).json(err);  
   }
-
 };
 

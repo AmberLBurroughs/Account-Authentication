@@ -1,120 +1,109 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import logo from './logo.svg';
+
+import logo from './beary2.png';
+
+import Panel from './components/Panel'
+import Input from './components/Input'
+import Button from './components/Button'
+
 import './App.css';
+
+// helper functions
+import API from "./utils/API";
 
 class App extends Component {
   state = {
     isLoggedIn: false
   }
+  
   componentWillMount(){
     this.checkAuth();
   }
 
   checkAuth(){
-
-   fetch("http://localhost:8000/user", {
-      method: 'GET',
-      credentials: 'include',
-      mode: 'cors'
-    })
-   .then(data => {return data.json()})
-    .then(json=>{
-      console.log(json);
+   API.checkAuth()
+    .then(data => {return data.json()})
+    .then(response => {
+      // console.log(response);
       this.setState({
-        isLoggedIn: json
+        isLoggedIn: response
       })
     })
-    .catch(err=> console.log("err",err));
-
+    .catch(err => console.log("err", err));
   }
 
-  handleLoginSubmit(e){
-    e.preventDefault();
-    // console.log("click")
-    var selectedButton = e.target.textContent;
-    var user = {
-      email: document.getElementById("user-email").value,
-      local_pw: document.getElementById("user-pw").value
-    }
-    // console.log(user);
-    // console.log(selectedButton);
-    if(selectedButton === "Signup"){
+  handleSubmitAccess(e){
+    if(this.refs.submitForm.reportValidity()) {
+      e.preventDefault();
 
-      fetch("http://localhost:8000/signup", {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json; charset=utf-8",
-            // "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: JSON.stringify(user),
-        credentials: 'include',
-        mode: 'cors'
-      })
+      const userData = {
+        email: document.getElementById("user-email").value,
+        local_pw: document.getElementById("user-pw").value
+      }
+    
+      let selectedButton = e.target.innerText;
+      selectedButton = selectedButton.toLowerCase();
+
+
+      selectedButton === "signup" ?  this.handleSignup(userData) : this.handleLogin(userData)
+    }
+  }
+
+  handleLogin(userData){
+      API.handleLogin(userData)
       .then(data => {return data.json()})
-      .then(json=>{
-        console.log("signup",json);
-        console.log(json);
+      .then(response=>{
+        if(response !== true){
+          alert("something went wrong please try again")
+        } 
         this.setState({
-          isLoggedIn: json
+          isLoggedIn: response
         })
       })
       .catch(err=> console.log("err",err));
+  }
 
-    }else if(selectedButton === "Signin"){
-
-
-      fetch("http://localhost:8000/signin", {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json; charset=utf-8"
-          // "origin": "http://localhost:3000"
-        },
-        body: JSON.stringify(user),
-        credentials: 'include',
-        mode: 'cors'
-      })
+  handleSignup(userData){
+      API.handleSignup(userData)
       .then(data => {return data.json()})
-      .then(json=>{
-        console.log("signin",json);
-        console.log(json);
+      .then(response=>{
+        if(response !== true){
+          alert("something went wrong please try again")
+        } 
         this.setState({
-          isLoggedIn: json
+          isLoggedIn: response
         })
       })
       .catch(err=> console.log("err",err));
-
-    }
   }
 
   handlelogout(){
-    fetch("http://localhost:8000/logout", {
-      method: 'GET',
-      credentials: 'include',
-      mode: 'cors'
-    })
+    API.handlelogout()
     .then(data => {return data.json()})
-    .then(json=>{
-      console.log(json);
+    .then(response=>{
+      console.log(response)
       this.setState({
-        isLoggedIn: json
+        isLoggedIn: response
       })
     })
     .catch(err=> console.log("err",err))
-
   }
 
-  renderTest(){
+  renderPanelContent(){
     if(this.state.isLoggedIn){
       return(<button onClick={this.handlelogout.bind(this)}>logout</button>)
     }else {
+      // console.log(this.state.isLoggedIn)
       return(
-        <form>
-          <input type="email" id="user-email" placeholder="your email"/>
-          <input type="password" id="user-pw" placeholder="your password"/>
-          <button onClick={this.handleLoginSubmit.bind(this)}>Signup</button>
-          <button onClick={this.handleLoginSubmit.bind(this)}>Signin</button>
-        </form>
+        <div>
+          <form ref="submitForm">
+            <Input elementID="user-email" inputType="email" placeholder="email" img="email" required={true} size="3"/>
+            <Input elementID="user-pw" inputType="password" placeholder="password" img="password" required={true} size="6"/>
+            <Button handleBtnClick={this.handleSubmitAccess.bind(this)} float="left">LOGIN</Button>
+            <Button handleBtnClick={this.handleSubmitAccess.bind(this)} float="right">SIGNUP</Button>
+
+          </form>
+        </div>
       )
     }
   }
@@ -122,14 +111,15 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
+        <section className="App-skew">
+        </section>
+        <header>
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">USER ACCOUNT Demo</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        {this.renderTest()}
+       <Panel>
+        {this.renderPanelContent()}
+       </Panel>
       </div>
     );
   }

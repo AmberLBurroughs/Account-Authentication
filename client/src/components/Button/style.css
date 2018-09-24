@@ -1,0 +1,28 @@
+.btn {
+	background-color: #FFEC57;
+	border: 1px solid #FFEC57;
+	border-radius: 35px;
+	padding: 10px;
+	width: 45%;
+	font-size: 16px;
+	margin: 5% 0;
+	font-weight: 400;
+}
+.btn.left {
+	float: left;
+}
+.btn.right {
+	float: right;
+}
+.btn.none {
+	float: none;
+}
+.btn:focus,
+.btn:active {
+	outline: none;
+	border: 1px solid #000;
+}
+.btn:hover {
+	cursor: pointer;
+	filter: brightness(95%);
+}

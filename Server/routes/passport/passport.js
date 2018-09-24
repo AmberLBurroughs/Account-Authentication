@@ -2,31 +2,6 @@ const router   = require("express").Router();
 const passport = require('passport');
 
 
-router.get('/user',  (req, res) => {
-    if(req.isAuthenticated()){
-      res.json(true)
-    }
-    else {
-      res.json(false)
-    }
-  });
-
-
-// =====================================
-// LOGOUT ==============================
-// =====================================
-
-router.get('/logout', (req, res) => {
-    //req.logout();
-     req.session.destroy(err => {
-      req.logout();
-      res.clearCookie("user_sid");
-      res.clearCookie("user_email");
-      res.clearCookie("authenticated");
-      res.json(false);
-    });
-});
-
 // =====================================
 // LOGIN ===============================
 // =====================================
@@ -86,5 +61,21 @@ passportAuthenticate = (localStrategy, req, res, next) => {
     }
   })(req, res, next);
 }
+
+
+// =====================================
+// LOGOUT ==============================
+// =====================================
+
+router.get('/logout', (req, res) => {
+    //req.logout();
+     req.session.destroy(err => {
+      req.logout();
+      res.clearCookie("user_sid");
+      res.clearCookie("user_email");
+      res.clearCookie("authenticated");
+      res.json(false);
+    });
+});
 
 module.exports = router;

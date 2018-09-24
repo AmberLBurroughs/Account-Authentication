@@ -28,53 +28,13 @@ module.exports = function(sequelize, DataTypes) {
                 notEmpty:true
             }
         },
-        street: {
+        fruit: {
             type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                min: 1,
-                notEmpty:true
-            }
-        },
-        city: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                min:1,
-                notEmpty:true
-            }
-        },
-        state: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                is:["^[a-z]+$",'i'],
-                min: 1,
-                notEmpty:true
-            }
-        },
-        zip: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            validate: {
-                isInt: true,
-                not: ["[a-z]",'i'],
-                min: 1,
-                notEmpty:true
-            }
-        },
-        phone: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                isInt: true,
-                not: ["[a-z]",'i'],
-                len: [10],
-                notEmpty:true
-            }
+            allowNull: false
         }
     });
-    // methods ======================
+
+    // accociations ======================
 
     Account.associate = function(models){
         Account.belongsTo(models.User, {
