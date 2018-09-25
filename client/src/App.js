@@ -37,13 +37,14 @@ class App extends Component {
       e.preventDefault();
 
       const userData = {
-        email: document.getElementById("user-email").value,
+        email:    document.getElementById("user-email").value,
         local_pw: document.getElementById("user-pw").value
       }
     
       let selectedButton = e.target.innerText;
       selectedButton = selectedButton.toLowerCase();
 
+      this.refs.submitForm.reset();
 
       selectedButton === "signup" ?  this.handleSignup(userData) : this.handleLogin(userData)
     }
@@ -53,12 +54,16 @@ class App extends Component {
       API.handleLogin(userData)
       .then(data => {return data.json()})
       .then(response=>{
-        if(response !== true){
-          alert("something went wrong please try again")
+        if(response === true){
+          this.setState({
+            isLoggedIn: response
+          }) 
+        }
+        else {
+          const errorWrap = document.getElementById("form-error");
+          errorWrap.innerText = "UH-OH! Please try again.";
+          errorWrap.className += "error";
         } 
-        this.setState({
-          isLoggedIn: response
-        })
       })
       .catch(err=> console.log("err",err));
   }
@@ -67,12 +72,18 @@ class App extends Component {
       API.handleSignup(userData)
       .then(data => {return data.json()})
       .then(response=>{
-        if(response !== true){
-          alert("something went wrong please try again")
+        if(response === true){
+          this.setState({
+            isLoggedIn: response
+          }) 
+        }
+        else {
+          const errorWrap = document.getElementById("form-error");
+          errorWrap.innerText = "UH-OH! Please try again.";
+          errorWrap.className += "error";
+
         } 
-        this.setState({
-          isLoggedIn: response
-        })
+        
       })
       .catch(err=> console.log("err",err));
   }
@@ -89,14 +100,21 @@ class App extends Component {
     .catch(err=> console.log("err",err))
   }
 
+  resetError(){
+    const errorWrap = document.getElementById("form-error");
+    errorWrap.innerText = "";
+    errorWrap.classList.remove("error");
+  }
+
   renderPanelContent(){
     if(this.state.isLoggedIn){
-      return(<button onClick={this.handlelogout.bind(this)}>logout</button>)
+      return(<Button float="none" handleBtnClick={this.handlelogout.bind(this)}>logout</Button>)
     }else {
       // console.log(this.state.isLoggedIn)
       return(
         <div>
-          <form ref="submitForm">
+          <form ref="submitForm" onClick={this.resetError.bind(this)}>
+            <p id="form-error"></p>
             <Input elementID="user-email" inputType="email" placeholder="email" img="email" required={true} size="3"/>
             <Input elementID="user-pw" inputType="password" placeholder="password" img="password" required={true} size="6"/>
             <Button handleBtnClick={this.handleSubmitAccess.bind(this)} float="left">LOGIN</Button>

@@ -32,7 +32,13 @@ header {
   height: 125px;
   /*animation: App-logo-spin infinite 20s linear;*/
 }
-
+.error {
+  color: rgb(222, 62, 62);
+  font-size: 18px;
+  background: rgba(222,62,62,0.16);
+  padding: 10px;
+  border-radius: 35px;
+}
 .App-logo-glit {
   animation: App-logo-spin infinite 20s linear;
 }
