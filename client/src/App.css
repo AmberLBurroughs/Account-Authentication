@@ -1,8 +1,9 @@
 .App {
   text-align: center;
-  min-height: 100vh;
+  height: 100vh;
+  min-height: 550px;
   background-color: #CEB9FE;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .App-skew {
@@ -45,4 +46,9 @@ header {
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+@media only screen and (max-width: 40em) {
+  .App-skew {
+    height: 450px;
+  }
 }

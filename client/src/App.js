@@ -108,7 +108,13 @@ class App extends Component {
 
   renderPanelContent(){
     if(this.state.isLoggedIn){
-      return(<Button float="none" handleBtnClick={this.handlelogout.bind(this)}>logout</Button>)
+      return(
+        <div>
+        <h3>Welcome to your account panel.</h3>
+        <h4>♡</h4>
+        <Button float="none" handleBtnClick={this.handlelogout.bind(this)}>logout</Button>
+        </div>
+        )
     }else {
       // console.log(this.state.isLoggedIn)
       return(
