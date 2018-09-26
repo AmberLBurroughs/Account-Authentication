@@ -27,10 +27,6 @@ module.exports = function(sequelize, DataTypes) {
                 min:1,
                 notEmpty:true
             }
-        },
-        fruit: {
-            type: DataTypes.STRING,
-            allowNull: false
         }
     });
 
@@ -38,7 +34,8 @@ module.exports = function(sequelize, DataTypes) {
 
     Account.associate = function(models){
         Account.belongsTo(models.User, {
-            foreignKey: "userUUID"
+            foreignKey: "userUUID",
+            onDelete: 'cascade'
         });
     };
 
