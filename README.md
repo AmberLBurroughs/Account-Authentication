@@ -21,10 +21,8 @@ What things you need installed before running this application.
 
 A step by step series of examples that tell you how to get a development env running
 
-1.)
+1.) Inside the server folder update the config.json file which is located in the config folder.
 ```
-Inside the server folder update the config.json file which is located in the config folder.
-
  "development": {
     "username": "root",
     "password": "password",
@@ -36,9 +34,10 @@ Inside the server folder update the config.json file which is located in the con
 ```
 2.)
 ```
-Open MySQL shell and run: CREATE DATABASE "database name here";
-The database name should reflect what is in the config file.
-no need to create any tables, this application use sequelize which will sync the models that are in the server directory
+# Open MySQL shell and run: 
+> CREATE DATABASE "$dbname";
+# The database name should reflect what is in the config file.
+# no need to create any tables, this application use sequelize which will sync the models that are in the server directory
 
 ```
 3.)
