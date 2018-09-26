@@ -1,6 +1,7 @@
-# Account creation with REACT & NODE 🐻
+# Account Authentication with REACT & NODE 🐻
 A simple user account creation boilerplate.
 <img src="./home.png" alt="screenshot of application">
+Decoupled application that uses a React frontend and Node Express server with MySQL database, Sequelize ORM, and Passport for secure authentication. 
 
 
 ## Getting Started
