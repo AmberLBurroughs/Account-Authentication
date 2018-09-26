@@ -43,26 +43,24 @@ no need to create any tables, this application use sequelize which will sync the
 ```
 3.)
 ```
-Open a new shell
-cd into the server directory
-run npm i (install)
-this will install all dependaciesy for the node portion of this application
-once the installs have completed
-run node server.js
-the Node application is set to run on PORT 8000 
-* if you update the PORT make sure to update the proxy in the client package.json as well
+# Open a new shell and navigate to the server directory
+$ npm i
+# this will install all dependencies for the node portion of this application
+# once the installs have completed
+$ node server.js
+# the Node application is set to run on PORT 8000 
+# * if you update the PORT make sure to update the proxy in the client package.json as well
 
 
 ```
 4.)
 ```
-Open a new shell 
-cd into the client directory
-run yarn install
-this will install all dependaciesy for the react portion of this application
-once the installs have completed
-run yarn start 
-the React application by default will run on PORT 3000
+# Open a new shell navigate into the client directory
+$ yarn install
+# this will install all dependencies for the react portion of this application
+# once the installs have completed
+$ yarn start 
+# the React application by default will run on PORT 3000
 
 ```
 
