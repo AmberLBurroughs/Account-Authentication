@@ -22,9 +22,8 @@ What things you need installed before running this application.
 
 A step by step series of examples that tell you how to get a development env running
 
-<<<<<<< HEAD
-1) Inside the server folder update the config.json file which is located in the config folder.
 
+1) Inside the server folder update the config.json file which is located in the config folder.
 ```
  "development": {
     "username": "root",
@@ -35,6 +34,7 @@ A step by step series of examples that tell you how to get a development env run
   }
 
 ```
+
 2)
 ```
 # Open MySQL shell and run: 
@@ -43,6 +43,7 @@ A step by step series of examples that tell you how to get a development env run
 # no need to create any tables, this application use sequelize which will sync the models that are in the server directory
 
 ```
+
 3)
 ```
 # Open a new shell and navigate to the server directory
@@ -53,8 +54,8 @@ $ node server.js
 # the Node application is set to run on PORT 8000 
 # * if you update the PORT make sure to update the proxy in the client package.json as well
 
-
 ```
+
 4)
 ```
 # Open a new shell navigate into the client directory
