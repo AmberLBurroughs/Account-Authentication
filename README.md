@@ -77,12 +77,4 @@ additional notes about how to deploy this on a live system
 * [sequelize](http://docs.sequelizejs.com/) - promise-based ORM for Node.js
 
 
-<!-- ## Versioning
- -->
-
-
-<!-- ## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details -->
-
 
