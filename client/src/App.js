@@ -128,7 +128,7 @@ class App extends Component {
   }
 
   renderPanelContent(){
-    (this.state.isLoggedIn)? this.renderAccountContent() : this.renderLoginForm()
+    return(this.state.isLoggedIn)? this.renderAccountContent() : this.renderLoginForm()
   }
 
   render() {

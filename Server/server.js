@@ -22,11 +22,9 @@ const db     = require("./models");
 
 require('./config/passport')(passport); // pass passport for configuration
 
-
 // Configure body parser for AJAX requests
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
 
 // Enable CORS so that browsers don't block requests.
 app.use((req, res, next) => {
@@ -38,13 +36,10 @@ app.use((req, res, next) => {
   next();
 });
 
-
-
 // Serve up static assets
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("../client/build"));
 }
-
 
 app.use(session({
     key: 'user_sid',
@@ -63,7 +58,6 @@ app.use(flash());
 // app.use(methodO("_method"));
 
 app.use(routes);
-
 
 
 // Launch Server ==============================================
