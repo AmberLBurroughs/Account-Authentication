@@ -1,15 +1,12 @@
-var Sequelize = require("sequelize");
+const Sequelize = require("sequelize");
+const bcrypt  = require('bcrypt');
 
-var uuidv1  = require('uuid/v1');
-
-var bcrypt  = require('bcrypt');
-
-module.exports = function(sequelize, DataTypes) {
-    var User = sequelize.define("User", {
+module.exports = (sequelize, DataTypes) => {
+    const User = sequelize.define("User", {
         uuid: {
           primaryKey: true,
           type: DataTypes.UUID,
-          defaultValue: DataTypes.UUIDV1,
+          defaultValue: DataTypes.UUIDV4,
           isUnique :true
         },
         email: {
@@ -18,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
             isUnique :true,
             validate: {
                 isEmail: true,
-                min: 4
+                min: 5
             }
         },
         local_pw: {
@@ -35,24 +32,22 @@ module.exports = function(sequelize, DataTypes) {
 
     // methods ======================
     // generating pw hash
-    User.generateHash = function(password) {
-      return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+    User.generateHash = (password) => {
+      return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
     };
+    
     // validate pw
-    User.prototype.validPassword = function(password) {
+    User.validPassword = (password) => {
       return bcrypt.compareSync(password, this.local_pw);
     };
 
     // accociations ======================
-
-    User.associate = function(models){
+    User.associate = (models) => {
         User.hasOne(models.Account, {
             foreignKey: "accountUUID",
             onDelete: "cascade"
         });
     };
-
-
 
     return User;
 }

@@ -1,13 +1,11 @@
+const Sequelize = require("sequelize");
 
-var uuidv1  = require('uuid/v1');
-
-module.exports = function(sequelize, DataTypes) {
-    var Account = sequelize.define("Account", {
-
+module.exports = (sequelize, DataTypes) => {
+    const Account = sequelize.define("Account", {
         uuid: {
           primaryKey: true,
           type: DataTypes.UUID,
-          defaultValue: DataTypes.UUIDV1,
+          defaultValue: DataTypes.UUIDV4,
           isUnique :true
         },
         first_name: {
@@ -27,12 +25,16 @@ module.exports = function(sequelize, DataTypes) {
                 min:1,
                 notEmpty:true
             }
-        }
+        },
+        address: DataTypes.STRING,
+        latLng: DataTypes.STRING,
+        photo: DataTypes.STRING,
+        createdAt: Sequelize.DATE,
+        updatedAt: Sequelize.DATE
     });
 
     // accociations ======================
-
-    Account.associate = function(models){
+    Account.associate = (models) => {
         Account.belongsTo(models.User, {
             foreignKey: "userUUID",
             onDelete: 'cascade'
