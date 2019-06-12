@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "password",
-    "database": "react_pp",
+    "database": "auth_demo",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
