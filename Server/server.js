@@ -2,6 +2,7 @@
 require("dotenv").config();
 //Dependencies
 const express    = require("express");
+const fileUpload =  require('express-fileupload')
 
 const passport     = require('passport');
 const flash        = require('connect-flash');
@@ -20,6 +21,8 @@ require('./config/passport')(passport); // pass passport for configuration
 // Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.use(fileUpload())
 
 // Serve up static assets
 if (process.env.NODE_ENV === "production") {
