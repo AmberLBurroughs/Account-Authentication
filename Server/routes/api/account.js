@@ -1,10 +1,13 @@
 const router = require("express").Router();
 const accountController = require("../../controllers/account-controller");
 
-// Matches with "/api/account"
+// =====================================
+//    /api/account   ===================
+// =====================================
 router.route("/")
   .get(accountController.find)
   .post(accountController.create)
-  .put(accountController.update);
+  .put(accountController.update)
+  .delete(accountController.delete);
 
 module.exports = router;

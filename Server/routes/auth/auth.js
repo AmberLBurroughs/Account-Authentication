@@ -1,7 +1,6 @@
 const router   = require("express").Router();
 const passport = require('passport');
 
-
 // =====================================
 // LOGIN ===============================
 // =====================================
@@ -23,35 +22,20 @@ router.post('/signup', (req, res, next) => {
 // =====================================
 // passport local strategy =============
 // =====================================
-
 passportAuthenticate = (localStrategy, req, res, next) => {
-  passport.authenticate(localStrategy, function(err, user, info) {
+  passport.authenticate(localStrategy, (err, user, info) => {
     if (err) {
       return next(err); // will generate a 500 error
     }
     // Generate a JSON response reflecting authentication status
-    if (! user) {
-      return res.send({ success : false, message : 'authentication failed' });
+    if (!user) {
+      return res.send({ success : false, message : info });
     }
-
-    // ***********************************************************************
-    // "Note that when using a custom callback, it becomes the application's
-    // responsibility to establish a session (by calling req.login()) and send
-    // a response."
-    // Source: http://passportjs.org/docs
-    // ***********************************************************************
     else{
       req.login(user, loginErr => {
         if (loginErr) {
-          console.log("loginerr", loginErr)
           return next(loginErr);
         }
-        console.log("\n##########################");
-        console.log(req.isAuthenticated());
-        console.log('sucess');
-        console.log(req.session.passport.user);
-        console.log("##########################");
-        console.log("\n")
 
         res.cookie('user_email', user.email );
         res.cookie('authenticated', "true" );
@@ -62,20 +46,26 @@ passportAuthenticate = (localStrategy, req, res, next) => {
   })(req, res, next);
 }
 
-
 // =====================================
 // LOGOUT ==============================
 // =====================================
-
 router.get('/logout', (req, res) => {
-    //req.logout();
      req.session.destroy(err => {
+      if(err) throw err
       req.logout();
       res.clearCookie("user_sid");
       res.clearCookie("user_email");
       res.clearCookie("authenticated");
-      res.json(false);
+      res.json(true);
     });
+});
+
+// =====================================
+// Auth Validation =====================
+// =====================================
+router.get('/auth', (req, res)=> {
+  let auth = req.isAuthenticated();
+  res.json(auth);
 });
 
 module.exports = router;
