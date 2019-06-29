@@ -21,7 +21,6 @@
     "aws-sdk": "^2.474.0",
     "axios": "^0.18.1",
     "bcrypt": "^3.0.6",
-    "connect-flash": "^0.1.1",
     "dotenv": "^6.2.0",
     "express": "^4.17.1",
     "express-fileupload": "^1.1.5",
@@ -30,6 +29,6 @@
     "mysql2": "^1.6.5",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "sequelize": "^4.44.0"
+    "sequelize": "^6.0.0"
   }
 }
