@@ -104,11 +104,11 @@ module.exports = (passport) => {
             }
             // if no user is found, return the message
             if (!user){
-                return done(null, false, req.flash('loginMessage', 'No user found.')); 
+                return done(null, false,'No user found.'); 
             }
             // if the user is found but the local_pw is wrong
-            if (user && !user.validPassword(req.body.local_pw)){
-                return done(null, false, req.flash('loginMessage', 'invalid email / password.'));
+            if (!user.validPassword(req.body.local_pw, user.local_pw)){
+                return done(null, false, 'invalid email / password combination.');
             }
             // all is well, return successful user
             return done(null, user);
