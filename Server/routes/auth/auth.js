@@ -25,11 +25,14 @@ router.post('/signup', (req, res, next) => {
 passportAuthenticate = (localStrategy, req, res, next) => {
   passport.authenticate(localStrategy, (err, user, info) => {
     if (err) {
+    
       return next(err); // will generate a 500 error
     }
     // Generate a JSON response reflecting authentication status
     if (!user) {
-      return res.send({ success : false, message : info });
+     console.log(info)
+      
+      return res.send({ success : false, message: info });
     }
     else{
       req.login(user, loginErr => {
@@ -40,7 +43,7 @@ passportAuthenticate = (localStrategy, req, res, next) => {
         res.cookie('user_email', user.email );
         res.cookie('authenticated', "true" );
 
-        return res.json(true);
+        return res.json({ success : true });
       });
     }
   })(req, res, next);
@@ -56,7 +59,7 @@ router.get('/logout', (req, res) => {
       res.clearCookie("user_sid");
       res.clearCookie("user_email");
       res.clearCookie("authenticated");
-      res.json(true);
+      res.json(req.isAuthenticated());
     });
 });
 
