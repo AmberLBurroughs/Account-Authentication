@@ -5,7 +5,6 @@ const express    = require("express");
 const fileUpload =  require('express-fileupload')
 
 const passport     = require('passport');
-const flash        = require('connect-flash');
 const session      = require('express-session'); // cookie session
 
 const app  = express();
@@ -42,7 +41,6 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
-app.use(flash());
 
 app.use(routes);
 
