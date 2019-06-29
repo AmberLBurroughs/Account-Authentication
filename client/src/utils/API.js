@@ -1,6 +1,6 @@
 export default {
 	checkAuth: function(){
-		return fetch("/api/user/auth", {
+		return fetch("/auth", {
       method: 'GET',
       credentials: 'include',
       mode: 'cors'
@@ -34,13 +34,5 @@ export default {
       credentials: 'include',
       mode: 'cors'
     });
-	}
-	
-	// getCookies: function(){
-	// 	const value = document.cookie;
-	// 	let parts = value.split("user_email" + "; ");
-	// 	parts = parts[0].split("=");
-	// 	return decodeURIComponent(parts[1]);
-	// },
-	
+	}	
 }
